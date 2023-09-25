@@ -194,4 +194,4 @@ app.js
   onChange={(e) => setExampleValue(e.target.value)}
 />
 ```
-This approach involves breaking down a large application into smaller, independent, and interoperable units. Each unit is responsible for a specific business functionality and can be deployed and scaled independently. This methodology is adopted to manage complex applications more flexibly and enhance scalability.
+Organizing React projects in this manner makes code maintenance easier and allows other developers to understand the project more readily.
