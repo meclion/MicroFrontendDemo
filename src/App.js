@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
+import styles from "./App.module.scss";
+
+import Header from "./components/Header";
+import InputField from "./components/InputField/index.jsx";
+import Button from "./components/Button";
 
 const App = () => {
   const [result, setResult] = useState(null);
@@ -8,57 +13,43 @@ const App = () => {
   const [currentValue, setCurrentValue] = useState("");
 
   const calculateCurrentPositionPercentage = () => {
-    const min = parseFloat(minValue);
-    const max = parseFloat(maxValue);
+    const minimum = parseFloat(minValue);
+    const maximum = parseFloat(maxValue);
     const current = parseFloat(currentValue);
 
-    if (current < min || current > max) {
-      alert(
-        "The current value must be between the minimum and maximum values."
-      );
+    if (current < minimum || current > maximum) {
+      alert("The current value must be between minimum and maximum values.");
+      return;
     }
 
-    const currentPercentage = ((current - min) / (max - min)) * 100;
+    const currentPercentage = ((current - minimum) / (maximum - minimum)) * 100;
     setResult(currentPercentage);
+    console.log("currentPercentage: ", currentPercentage);
   };
 
   return (
     <div className="App">
-      <h1>Percentage Calculator</h1>
-      <div>
-        <label>
-          Maximum Value:
-          <input
-            type="number"
-            value={maxValue}
-            onChange={(e) => setMaxValue(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Minimum Value:
-          <input
-            type="number"
-            value={minValue}
-            onChange={(e) => setMinValue(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Current Value:
-          <input
-            type="number"
-            value={currentValue}
-            onChange={(e) => setCurrentValue(e.target.value)}
-          />
-        </label>
-      </div>
-      <button onClick={calculateCurrentPositionPercentage}>
-        Calculate Percentage
-      </button>
-      {result !== null && <div>Result: {result.toFixed(2)}%</div>}
+      <Header subject="Percentage Calculator" />
+      <InputField
+        label="Current Value"
+        value={currentValue}
+        onChange={(e) => setCurrentValue(e.target.value)}
+      />
+      <InputField
+        label="Maximum Value"
+        value={maxValue}
+        onChange={(e) => setMaxValue(e.target.value)}
+      />
+      <InputField
+        label="Minimum Value"
+        value={minValue}
+        onChange={(e) => setMinValue(e.target.value)}
+      />
+
+      <Button label="Click Me" onClick={calculateCurrentPositionPercentage} />
+      {result !== null && (
+        <div className={styles.resultField}>Result : {result.toFixed(2)}%</div>
+      )}
     </div>
   );
 };
