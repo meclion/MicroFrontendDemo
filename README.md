@@ -142,3 +142,56 @@ const App = () => {
 
 export default App;
 ```
+### The repetitive code below has been refactored into a component for better organization.
+
+## Before
+```sh
+app.js
+```
+```jsx
+<div>
+  <label>
+    {label}:
+    <input
+      type="number"
+      value={value}
+      onChange={(e) => setExample(e.target.value)}
+    />
+  </label>
+</div>
+```
+
+## After
+```sh
+src/components/
+|-- InputField/
+    |-- index.jsx
+    |-- InputField.styles.css
+```
+```jsx
+import React from "react";
+import styles from "./InputField.module.scss";
+
+const InputField = ({ label, value, onChange }) => {
+  return (
+    <div className={styles.inputField}>
+      <label>
+        {label} : <input type="number" value={value} onChange={onChange} />
+      </label>
+    </div>
+  );
+};
+
+export default InputField;
+```
+```sh
+app.js
+```
+```jsx
+<InputField
+  label="Value"
+  value={value}
+  onChange={(e) => setExampleValue(e.target.value)}
+/>
+```
+This approach involves breaking down a large application into smaller, independent, and interoperable units. Each unit is responsible for a specific business functionality and can be deployed and scaled independently. This methodology is adopted to manage complex applications more flexibly and enhance scalability.
